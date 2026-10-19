@@ -8,7 +8,7 @@
     {
       "name": "review-spec",
       "description": "Multi-agent parallel spec review loop: codebase-grounded dimension reviewers (code-delta / architecture / risk / upstream / adversarial), parallel fix patches, serial apply, quantified pass gate (>=85/100 & zero P0)",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "source": "./",
       "author": {
         "name": "yjjnls"
