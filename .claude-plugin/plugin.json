@@ -1,0 +1,20 @@
+{
+  "name": "review-spec",
+  "description": "Multi-agent parallel spec review loop for Claude Code: codebase-grounded dimension reviewers, parallel fix patches, serial apply, quantified pass gate",
+  "version": "1.0.0",
+  "author": {
+    "name": "yjjnls"
+  },
+  "homepage": "https://github.com/yjjnls/review-spec",
+  "repository": "https://github.com/yjjnls/review-spec",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "spec-review",
+    "design-review",
+    "multi-agent",
+    "subagents",
+    "workflow",
+    "claude-code"
+  ]
+}
