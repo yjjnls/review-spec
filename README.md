@@ -2,7 +2,7 @@
 
 > 多 Agent 并行方案文档 Review 循环 —— 写码之前，让一组只读子 Agent 拿着你的代码库把 spec 审到量化放行线。
 
-Claude Code 的斜杠命令 / Agent Skill / 插件：喂它一份设计文档（spec / 方案文档），它并行派出一组**分维度只读子 Agent** 对照你的真实代码库审查，产出结构化修复建议（patch），自动落盘、自动多轮复审，直到总分达标或熔断转人工。
+Claude Code 的斜杠命令 / 插件：喂它一份设计文档（spec / 方案文档），它并行派出一组**分维度只读子 Agent** 对照你的真实代码库审查，产出结构化修复建议（patch），自动落盘、自动多轮复审，直到总分达标或熔断转人工。
 
 ## 安装
 
@@ -19,12 +19,6 @@ Claude Code 的斜杠命令 / Agent Skill / 插件：喂它一份设计文档（
 
 ```bash
 mkdir -p ~/.claude/commands && cp commands/review-spec.md ~/.claude/commands/
-```
-
-**方式三：手动安装为 Agent Skill**
-
-```bash
-cp -r skills/review-spec ~/.claude/skills/
 ```
 
 ## 使用
@@ -141,7 +135,7 @@ superpowers:finishing-a-development-branch                  合并收尾
 
 ## English
 
-A Claude Code slash command / Agent skill / plugin for **multi-agent parallel review of design specs against your actual codebase**. Five specialized read-only reviewer agents (code-delta, architecture/flow, risk, upstream, adversarial) fan out in parallel; fix patches are generated in parallel but applied serially by the main session; the loop re-runs automatically until a quantified gate (weighted score ≥85/100 and zero P0) or a circuit breaker trips. Round history is kept in `*.review-status.md` next to the spec.
+A Claude Code slash command / plugin for **multi-agent parallel review of design specs against your actual codebase**. Five specialized read-only reviewer agents (code-delta, architecture/flow, risk, upstream, adversarial) fan out in parallel; fix patches are generated in parallel but applied serially by the main session; the loop re-runs automatically until a quantified gate (weighted score ≥85/100 and zero P0) or a circuit breaker trips. Round history is kept in `*.review-status.md` next to the spec.
 
 ```text
 # install via plugin marketplace (recommended)
@@ -149,8 +143,7 @@ A Claude Code slash command / Agent skill / plugin for **multi-agent parallel re
 /plugin install review-spec@review-spec
 
 # or manual
-cp commands/review-spec.md ~/.claude/commands/        # slash command
-cp -r skills/review-spec ~/.claude/skills/           # agent skill
+cp commands/review-spec.md ~/.claude/commands/
 ```
 
 Usage: `/review-spec <path-to-spec>`
