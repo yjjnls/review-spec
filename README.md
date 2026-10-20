@@ -29,7 +29,7 @@ mkdir -p ~/.claude/commands && cp commands/review-spec.md ~/.claude/commands/
 
 - 不传路径时默认找 `docs/superpowers/specs/` → `docs/specs/`，都没有会直接询问
 - 之后全自动：并行审查 → 汇总 → 自动修复落盘 → 自动复审，直到 **总分 ≥85 且零 P0** 放行，或熔断转人工交还给你
-- 每轮结果写在 `<spec>.review-status.md`（与 spec 同目录），中断可续、历史可溯
+- 每轮结果写在 `<spec>.review-status.md`（统一在 `docs/superpowers/reviews/`），中断可续、历史可溯
 - 多份 spec 可同时各起一套编队并行 review
 
 ## 特性
@@ -39,7 +39,7 @@ mkdir -p ~/.claude/commands && cp commands/review-spec.md ~/.claude/commands/
 - **patch 并行生成、串行落盘**：修复建议以自包含 patch 输出（定位摘录唯一 + 完整替换文本 + 代码依据），主会话合并后串行 apply，避免并发写冲突
 - **Finding 台账收敛契约**：问题编号入账（如 R1-C-02），状态机 open→fixed→verified / accepted-risk；复核轮只看台账 + patch diff、**禁止全文重扫**，新发现必须位于改动区域或附台账外新代码证据——未决问题集单调递减，随机发散被结构性消灭
 - **量化放行**：各维度 0-10 分按权重（A30/B30/C25/D15/E15，缺席维度归一化）折算百分制，**总分 ≥85 且零 P0** 才放行；达标维度**冻结**（不再重审，除非被后续 patch 触碰）
-- **轮次留痕**：每轮写 `<spec>.review-status.md`（分数趋势/verdict/Finding 台账快照），通过标 APPROVED
+- **轮次留痕**：每轮写 `<spec>.review-status.md`（分数趋势/verdict/Finding 台账快照），台账统一落 `docs/superpowers/reviews/`，通过标 APPROVED
 - **问题预算递减**：第 2 轮起未修 P2 转入风险登记表；第 3 轮起 verify-only（只受理 patch 引入的回归）
 - **省 token 循环**：修复只落在单一维度时只重派该维度复核；跨维度才全编队重跑
 - **双重熔断 + 裁决收尾**：5 轮上限；连续 2 轮总分不涨即停；熔断后三选一（带风险放行 / 定点人修后定向验证 / 退回 brainstorming 重写），裁决结果写入留痕文件
@@ -94,7 +94,7 @@ superpowers:finishing-a-development-branch                  合并收尾
   B 9/10（冲突已消除）  C 8/10 → 总分 ≥85 且零 P0 → APPROVED ✅
 ```
 
-`2026-10-19-portal-route-cache-design.review-status.md` 留下完整审计链（逐轮分数/verdict/patch 摘要），随 spec 提交。
+`2026-10-19-portal-route-cache-design.review-status.md` 留下完整审计链（逐轮分数/verdict/patch 摘要），随仓库提交，统一在 `docs/superpowers/reviews/`。
 
 ### 例 2：高风险方案（自动加派对抗审计）
 
@@ -137,7 +137,7 @@ superpowers:finishing-a-development-branch                  合并收尾
 
 ## English
 
-A Claude Code slash command / plugin for **multi-agent parallel review of design specs against your actual codebase**. Five specialized read-only reviewer agents (code-delta, architecture/flow, risk, upstream, adversarial) fan out in parallel; fix patches are generated in parallel but applied serially by the main session; the loop re-runs automatically until a quantified gate (weighted score ≥85/100 and zero P0) or a circuit breaker trips. Round history is kept in `*.review-status.md` next to the spec.
+A Claude Code slash command / plugin for **multi-agent parallel review of design specs against your actual codebase**. Five specialized read-only reviewer agents (code-delta, architecture/flow, risk, upstream, adversarial) fan out in parallel; fix patches are generated in parallel but applied serially by the main session; the loop re-runs automatically until a quantified gate (weighted score ≥85/100 and zero P0) or a circuit breaker trips. Round history is kept in `*.review-status.md` under `docs/superpowers/reviews/` (never mixed into the specs directory).
 
 ```text
 # install via plugin marketplace (recommended)
