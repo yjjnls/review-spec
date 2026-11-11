@@ -2,13 +2,20 @@
 
 > 多 Agent 并行方案文档 Review 循环 —— 写码之前，让一组只读子 Agent 拿着你的代码库把 spec 审到量化放行线。
 
-Claude Code 的斜杠命令 / 插件：喂它一份设计文档（spec / 方案文档），它并行派出一组**分维度只读子 Agent** 对照你的真实代码库审查，产出结构化修复建议（patch），自动落盘、自动多轮复审，直到总分达标或熔断转人工。
+Claude Code 插件 / 斜杠命令 + WorkBuddy 技能双形态：喂它一份设计文档（spec / 方案文档），它并行派出一组**分维度只读子 Agent**（代码对照 / 流程架构 / 风险审计 / 开源对照 / 对抗审计）对照你的真实代码库审查，产出结构化修复建议（patch），自动落盘、自动多轮复审，直到总分达标（≥85 且零 P0）或熔断转人工。
 
-## 安装
+**核心特性**：Finding 台账收敛契约（复核轮禁全文重扫，未决问题单调递减）· patch 并行生成串行落盘 · 量化放行线 + 维度冻结 · 双熔断保护（5 轮上限 / 2 轮无进展即停）· 全程只改方案文档不动代码。
 
-**方式一：插件市场（推荐，一行命令）**
+## 安装（Claude Code）
 
-在 Claude Code 里执行：
+**方式一：插件市场（推荐）**
+
+```bash
+claude plugin marketplace add yjjnls/review-spec
+claude plugin install review-spec@review-spec
+```
+
+或在 Claude Code 会话内执行：
 
 ```
 /plugin marketplace add yjjnls/review-spec
@@ -19,6 +26,14 @@ Claude Code 的斜杠命令 / 插件：喂它一份设计文档（spec / 方案�
 
 ```bash
 mkdir -p ~/.claude/commands && cp commands/review-spec.md ~/.claude/commands/
+```
+
+## 安装（WorkBuddy）
+
+拷贝 `workbuddy-skill/` 目录到用户技能目录，或从 SkillHub 安装（搜索「方案文档评审循环」/ review-spec）：
+
+```bash
+git clone https://github.com/yjjnls/review-spec && cp -r review-spec/workbuddy-skill ~/.workbuddy/skills/review-spec
 ```
 
 ## 使用
