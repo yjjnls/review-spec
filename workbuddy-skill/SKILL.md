@@ -1,5 +1,8 @@
 ---
 name: review-spec
+slug: review-spec
+displayName: 方案文档评审循环
+version: 1.0.1
 description: 方案文档多 Agent 并行 Review 循环：对照真实代码库分维度审查（代码对照/流程架构/风险审计/开源对照/对抗审计），并行生成修复 patch、串行落盘、Finding 台账收敛契约、自动多轮复核直到量化放行（总分 ≥85 且零 P0）。适用于写代码前审查设计文档/方案文档/spec，用户提到「评审方案」「审查设计文档」「spec review」「多Agent审查方案」时使用。
 ---
 
