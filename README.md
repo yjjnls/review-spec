@@ -153,3 +153,18 @@ Usage: `/review-spec <path-to-spec>`
 ## License
 
 MIT
+
+## WorkBuddy 版本
+
+`workbuddy-skill/` 目录是同一套工作流的 WorkBuddy 技能（SKILL.md + references）移植版：
+
+```bash
+# 手动安装：拷贝目录到用户技能目录
+cp -r workbuddy-skill ~/.workbuddy/skills/review-spec
+```
+
+或在 WorkBuddy 客户端技能管理页导入 `workbuddy-skill/` 打包的 zip。移植差异：
+- 触发方式：自然语言（"评审方案"/"spec review"）替代斜杠命令
+- 子 Agent：Claude Code Task 工具 → WorkBuddy Agent 工具（同为 general-purpose 只读）
+- 去 Claude Code 语境：superpowers 衔接段、公司内部业务词（Higress/Envoy/WasmPlugin/DNAT）已泛化
+- review-status 留痕目录：`docs/superpowers/reviews/` → `docs/reviews/`
